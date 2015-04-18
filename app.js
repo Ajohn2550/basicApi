@@ -94,6 +94,19 @@ api.route('/items/:item_id')
         });
       }
     });
+  })
+
+  // DELETE request to remove an item
+  .delete(function (req, res) {
+    Item.remove({
+      _id: req.params.item_id
+    }, function (err, item) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.json({ message: 'Successfully removed the item.'});
+      }
+    });
   });
 
 // Now we create a basic response for a GET request to  the root of our api
