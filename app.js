@@ -61,12 +61,15 @@ api.route('/items')
 // api routes using /items/:item_id
 // ----------------------------------------------------------------------------
 api.route('/items/:item_id')
+  // GET request to retreive item by its id
   .get(function (req, res) {
+    // Get items based on the item_id in the GET request
     Item.findById(req.params.item_id, function (err, item) {
+      // Check for errors
       if (err) {
-        res.send(err);
+        res.send(err); // Send errors if any
       } else {
-        res.json(item);
+        res.json(item); // Send JSON object for item
       }
     });
   });
