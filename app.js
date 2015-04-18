@@ -58,6 +58,18 @@ api.route('/items')
       }
     });
   });
+// api routes using /items/:item_id
+// ----------------------------------------------------------------------------
+api.route('/items/:item_id')
+  .get(function (req, res) {
+    Item.findById(req.params.item_id, function (err, item) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.json(item);
+      }
+    });
+  });
 
 // Now we create a basic response for a GET request to  the root of our api
 api.get('/', function (req, res) {
