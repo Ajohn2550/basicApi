@@ -48,6 +48,15 @@ api.route('/items')
         res.json({ message: 'Item added!'}); // Send a success message!
       }
     });
+  })
+  .get(function (req, res) {
+    Item.find(function (err, items) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.json(items);
+      }
+    });
   });
 
 // Now we create a basic response for a GET request to  the root of our api
