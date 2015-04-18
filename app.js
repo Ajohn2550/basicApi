@@ -63,13 +63,35 @@ api.route('/items')
 api.route('/items/:item_id')
   // GET request to retreive item by its id
   .get(function (req, res) {
-    // Get items based on the item_id in the GET request
+    // Find item by the item_id in the GET request
     Item.findById(req.params.item_id, function (err, item) {
       // Check for errors
       if (err) {
         res.send(err); // Send errors if any
       } else {
         res.json(item); // Send JSON object for item
+      }
+    });
+  })
+
+  // PUT requset to update existing items
+  .put(function (req, res) {
+    // Find item by the item_id in the PUT request
+    Item.findById(req.params.item_id, function (err, item) {
+      // Check for errors in the mongo query
+      if (err) {
+        res.send(err); // Send error
+      } else {
+        item.name = req.body.name; // Update the nam of the item
+        // Save the item with its new name
+        item.save(function (err) {
+          // As always, We check for errors
+          if (err) {
+            res.send(err); // Send any errors
+          } else {
+            res.json({ message: 'Item updated!'});
+          }
+        });
       }
     });
   });
